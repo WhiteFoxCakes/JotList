@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.jotlist.app.ui.screens.home.HomeScreen
 
 /**
  * Main navigation graph for JotList.
@@ -27,8 +28,11 @@ fun NavGraph() {
         startDestination = Screen.Home.route
     ) {
         composable(route = Screen.Home.route) {
-            // TODO: Replace with HomeScreen
-            PlaceholderScreen(screenName = "Home")
+            HomeScreen(
+                onNavigateToList = { listId ->
+                    navController.navigate(Screen.ListDetail.createRoute(listId))
+                }
+            )
         }
 
         composable(

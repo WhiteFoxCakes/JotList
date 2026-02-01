@@ -2,6 +2,7 @@ package com.jotlist.app.data.repository
 
 import com.jotlist.app.data.local.database.dao.ShoppingListDao
 import com.jotlist.app.domain.model.ShoppingList
+import com.jotlist.app.domain.model.ShoppingListWithCount
 import com.jotlist.app.domain.model.toDomain
 import com.jotlist.app.domain.model.toEntity
 import com.jotlist.app.domain.repository.ShoppingListRepository
@@ -19,6 +20,17 @@ class ShoppingListRepositoryImpl @Inject constructor(
     override fun getAllLists(): Flow<List<ShoppingList>> {
         return dao.getAllLists().map { entities ->
             entities.map { it.toDomain() }
+        }
+    }
+
+    override fun getAllListsWithItemCount(): Flow<List<ShoppingListWithCount>> {
+        return dao.getAllListsWithItemCount().map { entities ->
+            entities.map { entity ->
+                ShoppingListWithCount(
+                    list = entity.list.toDomain(),
+                    itemCount = entity.itemCount
+                )
+            }
         }
     }
 

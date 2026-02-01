@@ -1,6 +1,7 @@
 package com.jotlist.app.domain.repository
 
 import com.jotlist.app.domain.model.ShoppingList
+import com.jotlist.app.domain.model.ShoppingListWithCount
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,6 +14,11 @@ interface ShoppingListRepository {
      * Retrieves all shopping lists ordered by most recently updated.
      */
     fun getAllLists(): Flow<List<ShoppingList>>
+
+    /**
+     * Retrieves all shopping lists with their item counts, ordered by most recently updated.
+     */
+    fun getAllListsWithItemCount(): Flow<List<ShoppingListWithCount>>
 
     /**
      * Retrieves a single shopping list by its ID.
