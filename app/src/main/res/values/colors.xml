@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Palette (Foundation) -->
+    <color name="dark_background">#181920</color>
+    <color name="surface_card">#252836</color>
+    <color name="input_surface">#2D303E</color>
+
+    <!-- Accent Palette (Action) -->
+    <color name="electric_blue">#546FFF</color>
+    <color name="violet">#9747FF</color>
+    <color name="neon_green">#2AC769</color>
+    <color name="soft_red">#FF5C5C</color>
+
+    <!-- Text & Iconography -->
+    <color name="white">#FFFFFF</color>
+    <color name="soft_grey">#8F92A1</color>
+    <color name="dark_grey">#5E6272</color>
+</resources>

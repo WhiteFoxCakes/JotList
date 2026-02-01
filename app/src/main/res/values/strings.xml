@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JotList</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">JotList</string>
+    <string name="empty_lists_message">No lists yet</string>
+    <string name="create_list">Create new list</string>
+    <string name="items_count">%1$d items</string>
+    <string name="items_remaining">%1$d remaining</string>
+
+    <!-- List Detail Screen -->
+    <string name="add_item_hint">Add item…</string>
+    <string name="list_name_hint">List name</string>
+    <string name="completed_section">Completed</string>
+
+    <!-- Actions -->
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="rename">Rename</string>
+    <string name="edit">Edit</string>
+
+    <!-- Dialogs -->
+    <string name="delete_list_title">Delete List</string>
+    <string name="delete_list_message">Are you sure you want to delete \'%1$s\'? This action cannot be undone.</string>
+    <string name="edit_item_title">Edit Item</string>
+    <string name="rename_list_title">Rename List</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_add_list">Add new list</string>
+    <string name="cd_add_item">Add item</string>
+    <string name="cd_delete_item">Delete item</string>
+    <string name="cd_check_item">Check item</string>
+    <string name="cd_uncheck_item">Uncheck item</string>
+    <string name="cd_drag_handle">Drag to reorder</string>
+    <string name="cd_back">Go back</string>
+    <string name="cd_more_options">More options</string>
+</resources>

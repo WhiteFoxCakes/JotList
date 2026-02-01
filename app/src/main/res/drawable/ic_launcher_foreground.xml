@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background gradient circle -->
+    <path
+        android:fillColor="#546FFF"
+        android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+
+    <!-- Letter J stylized -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,32L62,60C62,66.627 56.627,72 50,72C43.373,72 38,66.627 38,60L38,56L46,56L46,60C46,62.209 47.791,64 50,64C52.209,64 54,62.209 54,60L54,32L62,32Z" />
+
+    <!-- Check mark accent -->
+    <path
+        android:fillColor="#2AC769"
+        android:strokeWidth="0"
+        android:pathData="M66,44L70,48L60,58L56,54L60,50L66,44Z" />
+</vector>
