@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jotlist.app.ui.screens.home.HomeScreen
+import com.jotlist.app.ui.screens.listdetail.ListDetailScreen
 
 /**
  * Main navigation graph for JotList.
@@ -42,10 +43,12 @@ fun NavGraph() {
                     type = NavType.LongType
                 }
             )
-        ) { backStackEntry ->
-            val listId = backStackEntry.arguments?.getLong(Screen.LIST_ID_ARG) ?: 0L
-            // TODO: Replace with ListDetailScreen
-            PlaceholderScreen(screenName = "List Detail (ID: $listId)")
+        ) {
+            ListDetailScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

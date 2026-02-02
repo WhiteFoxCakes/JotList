@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Status
 
-JotList is an Android shopping list app. **Phase 5 (Home Screen) is complete.**
+JotList is an Android shopping list app. **Phase 6 (List Detail Screen) is complete.**
 
 **Package name:** `com.jotlist.app`
 
@@ -21,6 +21,7 @@ JotList is an Android shopping list app. **Phase 5 (Home Screen) is complete.**
 - [x] Phase 3: Domain Layer - Domain models, use cases, utilities (TitleCaseConverter, DateFormatter)
 - [x] Phase 4: UI Foundation - Theme (colors, typography, shapes), navigation graph, Screen sealed class, MainActivity
 - [x] Phase 5: Home Screen - HomeViewModel, HomeScreen, ListCard, EmptyState, ConfirmationDialog, item count queries
+- [x] Phase 6: List Detail Screen - ListDetailViewModel, ListDetailScreen, item management (add/edit/delete/check), suggestions
 
 ## Build Commands
 
@@ -65,6 +66,7 @@ MVVM + Clean Architecture with three layers:
 - `DeleteListUseCase` - Deletes list by ID (items cascade deleted)
 
 **Item Use Cases** (`domain/usecase/item/`):
+- `GetItemsByListIdUseCase` - Returns `Flow<List<ListItem>>` for a specific list
 - `AddItemUseCase` - Adds item with title case + adds to suggestions
 - `UpdateItemUseCase` - Updates item text with title case (2 overloads)
 - `DeleteItemUseCase` - Deletes item by ID
@@ -88,14 +90,20 @@ MVVM + Clean Architecture with three layers:
 - `ConfirmationDialog.kt` - Reusable dialog for destructive actions (delete confirmation)
 - `EmptyState.kt` - Centered empty state with icon and message
 - `ListCard.kt` - Card component for displaying list summary with item count
+- `EditItemDialog.kt` - Dialog for editing item text with TextField
+- `ListItemRow.kt` - Item display with checkbox (custom circle border for unchecked, CheckCircle for checked)
+- `InputFieldWithSuggestions.kt` - Input field with animated dropdown for suggestions
+- `ListDetailTopBar.kt` - Top bar with back button and overflow menu
 
 **Screens** (`ui/screens/`):
 - `home/HomeViewModel.kt` - State management for home screen, navigation events via Channel
 - `home/HomeScreen.kt` - 2-column staggered grid of lists, FAB for new list creation
+- `listdetail/ListDetailViewModel.kt` - State management for list detail, 11 use case dependencies, debounced suggestions
+- `listdetail/ListDetailScreen.kt` - Item management UI with input field, suggestions, and dialogs
 
 **Navigation** (`ui/navigation/`):
 - `Screen.kt` - Sealed class with `Home` and `ListDetail` routes
-- `NavGraph.kt` - Navigation graph with HomeScreen wired up, ListDetail shows placeholder
+- `NavGraph.kt` - Navigation graph with both HomeScreen and ListDetailScreen fully wired
 
 **Activity**:
 - `MainActivity.kt` - Single activity with `@AndroidEntryPoint`, edge-to-edge enabled, hosts `NavGraph`
@@ -130,9 +138,19 @@ MVVM + Clean Architecture with three layers:
 
 ### Material Icons
 - **ALWAYS verify icon existence** before using - not all Material Icons exist in `Icons.Rounded.*`
-- ❌ `Icons.Rounded.ShoppingBag` - Does NOT exist
-- ✅ `Icons.Rounded.ShoppingCart` - Use this instead for shopping/list icons
-- Check Material Icons documentation or use autocomplete to verify icon availability
+- Many intuitive icon names do NOT exist in the Material Icons library
+- **Icons that DO NOT exist:**
+  - ❌ `Icons.Rounded.ShoppingBag`
+  - ❌ `Icons.Rounded.RadioButtonUnchecked`
+  - ❌ `Icons.Rounded.Circle`
+  - ❌ `Icons.Outlined.Circle`
+  - ❌ `Icons.Rounded.PanoramaFishEye`
+- **Working alternatives:**
+  - ✅ `Icons.Rounded.ShoppingCart` - Use for shopping/list icons
+  - ✅ `Icons.Rounded.CheckCircle` - Use for checked state
+  - ✅ Custom circle border (Box + BorderStroke + CircleShape) - Use for unchecked radio/checkbox
+- **Solution:** When a specific icon doesn't exist, use Compose drawing primitives (Box, Canvas, etc.) to create custom icons
+- Check Material Icons documentation or use autocomplete to verify icon availability before committing to a design
 
 ### Navigation Events
 - Use `Channel<NavigationEvent>` + `receiveAsFlow()` for one-shot events
@@ -143,6 +161,16 @@ MVVM + Clean Architecture with three layers:
 - Use `LEFT JOIN` when counting related items (returns 0 if no items exist)
 - Use `@Embedded` to combine entity with aggregate data in result class
 - Place data class outside interface (before `@Dao`) in same file
+
+### Compose Animations
+- `slideVertically()` animation may not always be available in imports
+- When animation imports fail, simplify to `fadeIn()`/`fadeOut()` only
+- Complex enter/exit animations are optional - focus on functionality first
+
+### PaddingValues Parameter Syntax
+- Prefer explicit parameters (`start`, `end`, `top`, `bottom`) over convenience parameters
+- Avoid `horizontal` parameter in PaddingValues - use `start` and `end` instead
+- Example: `PaddingValues(start = 16.dp, end = 16.dp, bottom = 8.dp)`
 
 ## File Naming Conventions
 
